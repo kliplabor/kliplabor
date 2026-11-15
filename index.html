@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KlipLabor – Magyar clipping platform streamereknek és clippereknek</title>
+<meta name="description" content="A KlipLabor összeköti a magyar streamereket a clipperekkel. A clipper 150 Ft-ot keres 1000 ellenőrzött megtekintésenként, a streamer csak a valódi nézettségért fizet, saját kerettel.">
+<link rel="canonical" href="https://kliplabor.hu/">
+<meta name="theme-color" content="#08090B">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta property="og:site_name" content="KlipLabor">
+<meta property="og:url" content="https://kliplabor.hu/">
+<meta property="og:title" content="KlipLabor – Itt készülnek a virális klipek">
+<meta property="og:description" content="Magyar clipping platform streamereknek és clippereknek. Fizetés az ellenőrzött megtekintések után.">
+<meta property="og:image" content="https://kliplabor.hu/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KlipLabor – Itt készülnek a virális klipek">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KlipLabor – Itt készülnek a virális klipek">
+<meta name="twitter:description" content="Magyar clipping platform streamereknek és clippereknek. Fizetés az ellenőrzött megtekintések után.">
+<meta name="twitter:image" content="https://kliplabor.hu/og-image.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@500&amp;display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --accent: #C6F432;
+    --accent-hover: #DDFF7A;
+    --on-accent: #08090B;
+    --on-accent-soft: #2B3307;
+    --bg: #08090B;
+    --surface: #101216;
+    --surface-2: #171A1F;
+    --line: #24282F;
+    --line-strong: #343A43;
+    --line-bright: #5C636E;
+    --text: #F3F4F5;
+    --text-soft: #B4BAC3;
+    --muted: #8E96A1;
+    --marquee: #6A717C;
+    --display: 'Bricolage Grotesque', 'Geist', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --body: 'Geist', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --nav-offset: 96px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-hover); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  [hidden] { display: none !important; }
+  h1, h2, h3, p { margin: 0; }
+  [id] { scroll-margin-top: var(--nav-offset); }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .eyebrow { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--accent); }
+  .h-section {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(34px, 4.6vw, 58px); line-height: 1.02; letter-spacing: -0.03em;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+  .skip {
+    position: absolute; left: 16px; top: -80px; z-index: 20;
+    background: var(--accent); color: var(--on-accent); font-weight: 600;
+    padding: 12px 18px; border-radius: 12px; text-decoration: none;
+  }
+  .skip:focus { top: 16px; color: var(--on-accent); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 54px; padding: 16px 26px; border-radius: 14px;
+    font-family: inherit; font-weight: 600; font-size: 17px; line-height: 1.2;
+    text-decoration: none; text-align: center; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn-accent { background: var(--accent); color: var(--on-accent); }
+  .btn-accent:hover { color: var(--on-accent); }
+  .btn-ghost { border-color: var(--line-strong); color: var(--text); background: transparent; }
+  .btn-ghost:hover { border-color: var(--text-soft); color: var(--text); }
+  .btn-dark { background: var(--on-accent); color: var(--text); }
+  .btn-dark:hover { color: var(--text); }
+  .btn-outline-dark { border: 2px solid var(--on-accent); color: var(--on-accent); background: transparent; }
+  .btn-outline-dark:hover { color: var(--on-accent); background: rgba(8, 9, 11, 0.08); }
+  .lift { transition: transform .16s ease, filter .16s ease; }
+  .lift:hover { transform: translateY(-2px); filter: brightness(1.06); }
+
+  /* ---------- Nav ---------- */
+  .nav-shell { position: sticky; top: 0; z-index: 10; padding: 16px 16px 0; }
+  .nav {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: rgba(16, 18, 22, 0.86); border: 1px solid var(--line); border-radius: 18px;
+    padding: 8px 8px 8px 18px;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  .brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; color: var(--text); }
+  .brand:hover { color: var(--text); }
+  .brand-name { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; align-items: center; gap: 4px; font-size: 15px; }
+  .nav-link {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 10px 14px;
+    color: var(--text-soft); text-decoration: none; border-radius: 10px;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 11px 18px;
+    background: var(--accent); color: var(--on-accent); border-radius: 12px;
+    font-weight: 600; text-decoration: none; white-space: nowrap;
+  }
+  .nav-cta:hover { color: var(--on-accent); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-top: 72px; padding-bottom: 64px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+  .hero-copy { flex: 1 1 460px; min-width: 0; }
+  .hero-copy .eyebrow { margin-bottom: 20px; }
+  .hero h1 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(46px, 6.6vw, 88px); line-height: 0.98; letter-spacing: -0.035em;
+  }
+  .toggle {
+    display: inline-flex; gap: 4px; margin-top: 32px; max-width: 100%;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 4px;
+  }
+  .toggle button {
+    border: 0; cursor: pointer; font-family: inherit; font-size: 16px; font-weight: 600;
+    padding: 12px 20px; min-height: 46px; border-radius: 10px;
+    background: transparent; color: var(--text-soft); white-space: nowrap;
+  }
+  .toggle button:hover { color: var(--text); }
+  .toggle button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+  .hero-lead { margin-top: 24px; font-size: 20px; color: var(--text-soft); max-width: 44ch; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+  /* ---------- Calculator ---------- */
+  .calc {
+    flex: 1 1 420px; min-width: 0;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 28px;
+    container-type: inline-size;
+  }
+  .calc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+  .calc-head h2 { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; }
+  .rate {
+    font-family: var(--mono); font-size: 13px; color: var(--text-soft); white-space: nowrap;
+    border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 12px;
+  }
+  .field { margin-top: 26px; }
+  .field-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; }
+  .field-top label, .stepper-row .lbl { color: var(--text-soft); font-size: 15px; }
+  .field-top output { font-weight: 600; }
+  input[type="range"] {
+    display: block; width: 100%; min-height: 44px; margin: 4px 0 0;
+    accent-color: var(--accent); cursor: pointer; background: transparent;
+  }
+  .stepper-row { margin-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .stepper {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 4px;
+  }
+  .stepper button {
+    width: 44px; height: 44px; border: 0; border-radius: 9px; padding: 0;
+    background: var(--line); color: var(--text); font-size: 22px; line-height: 1;
+    cursor: pointer; font-family: inherit;
+  }
+  .stepper button:hover:not(:disabled) { background: var(--line-strong); }
+  .stepper button:disabled { color: var(--line-bright); cursor: not-allowed; }
+  .stepper-val { min-width: 36px; text-align: center; font-weight: 600; font-size: 18px; }
+  .result { margin-top: 24px; background: var(--accent); color: var(--on-accent); border-radius: 20px; padding: 22px 24px; }
+  .result-label { font-size: 14px; font-weight: 600; }
+  .result-value {
+    margin-top: 4px; font-family: var(--display); font-weight: 800;
+    font-size: clamp(30px, 8.4vw, 52px);
+    font-size: clamp(30px, 10.5cqi, 60px);
+    line-height: 1; letter-spacing: -0.03em; white-space: nowrap;
+  }
+  .breakdown { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; color: var(--text-soft); }
+  .breakdown > div { display: flex; justify-content: space-between; gap: 12px; }
+  .breakdown span:last-child { color: var(--text); white-space: nowrap; text-align: right; }
+  .breakdown .total { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 2px; }
+  .breakdown .total span:last-child { font-weight: 600; }
+  .calc-note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+  /* ---------- Marquee ---------- */
+  .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding: 18px 0; }
+  .marquee-track {
+    display: flex; width: max-content; animation: kl-slide 32s linear infinite;
+    font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: -0.01em;
+    color: var(--marquee); white-space: nowrap;
+  }
+  .marquee-track > span { padding-right: 48px; }
+  .marquee-track i { font-style: normal; color: var(--accent); }
+  @keyframes kl-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- How it works ---------- */
+  .how { padding-top: 104px; padding-bottom: 40px; }
+  .how .eyebrow { margin-bottom: 12px; }
+  .how .h-section { margin-bottom: 44px; max-width: 16ch; }
+  .steps { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 30px; }
+  .steps li { flex: 1 1 300px; min-width: 0; }
+  .step-num { margin-bottom: 40px; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .card h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+  .steps h3 { margin-bottom: 8px; }
+  .card p { color: var(--text-soft); }
+  .steps-extra { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* ---------- Bento ---------- */
+  .bento-sec { padding-top: 16px; padding-bottom: 104px; }
+  .bento { display: flex; flex-wrap: wrap; gap: 16px; }
+  .bento > div { min-width: 0; }
+  .bento-wide { flex: 2 1 520px; display: flex; flex-direction: column; gap: 26px; justify-content: space-between; }
+  .bento-wide h3 { margin-bottom: 8px; font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; line-height: 1.15; }
+  .bento-wide > div > p { max-width: 46ch; }
+  .rows { display: flex; flex-direction: column; gap: 10px; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .row > span:first-child { font-weight: 600; }
+  .chip { font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+  .chip-ok { color: var(--on-accent); background: var(--accent); border: 1px solid var(--accent); }
+  .chip-wait { color: var(--text); border: 1px solid var(--line-bright); }
+  .bento-accent {
+    flex: 1 1 260px; background: var(--accent); color: var(--on-accent); border-radius: 24px; padding: 30px;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 260px;
+  }
+  .bento-accent .big { font-family: var(--display); font-weight: 800; font-size: 84px; line-height: 0.9; letter-spacing: -0.05em; }
+  .bento-accent h3 { margin-bottom: 6px; font-size: 22px; font-weight: 600; line-height: 1.25; }
+  .bento-accent p { color: var(--on-accent-soft); }
+  .bento-small { flex: 1 1 260px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 220px; }
+  .bento-small h3 { margin-bottom: 6px; }
+  .bento-small svg { display: block; flex: none; }
+
+  /* ---------- Prices ---------- */
+  .prices { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .prices .wrap { padding-top: 96px; padding-bottom: 96px; }
+  .prices .eyebrow { margin-bottom: 12px; }
+  .prices .h-section { margin-bottom: 40px; }
+  .price-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+  .price-card { flex: 1 1 400px; min-width: 0; background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: 34px; }
+  .price-card h3 { font-size: 18px; font-weight: 600; color: var(--text-soft); }
+  .price-big { margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: 60px; line-height: 1; letter-spacing: -0.04em; }
+  .price-big.accent { color: var(--accent); }
+  .price-sub { margin-top: 6px; color: var(--text-soft); }
+  .price-card dl { margin: 26px 0 0; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--line); padding-top: 22px; }
+  .price-card dl > div { display: flex; justify-content: space-between; gap: 16px; }
+  .price-card dt { color: var(--text-soft); }
+  .price-card dd { margin: 0; font-weight: 600; text-align: right; }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 860px; margin: 0 auto; padding: 104px 24px; }
+  .faq h2 { margin-bottom: 32px; font-family: var(--display); font-weight: 800; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.03em; }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+  summary {
+    cursor: pointer; list-style: none; position: relative;
+    font-weight: 600; font-size: 18px; line-height: 1.35;
+    padding: 20px 60px 20px 24px; min-height: 44px; border-radius: 18px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: ''; position: absolute; right: 26px; top: 50%; width: 10px; height: 10px;
+    border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+    transform: translateY(-70%) rotate(45deg); transition: transform .2s ease;
+  }
+  details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  details p { padding: 0 24px 22px; color: var(--text-soft); }
+
+  /* ---------- Final CTA ---------- */
+  .final { padding-top: 0; padding-bottom: 72px; }
+  .final-box {
+    background: var(--accent); color: var(--on-accent); border-radius: 32px; padding: 64px 32px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .final-box h2 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(38px, 5.6vw, 72px); line-height: 0.98; letter-spacing: -0.035em; max-width: 12ch;
+  }
+  .final-box .cta-row { margin-top: 0; }
+  .final-box :focus-visible { outline-color: var(--on-accent); }
+
+  /* ---------- Footer ---------- */
+  footer.wrap {
+    padding-top: 8px; padding-bottom: 48px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px;
+    color: var(--muted); font-size: 14px;
+  }
+  .foot-brand { font-family: var(--display); font-weight: 800; color: var(--text); font-size: 16px; }
+  .foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+  .foot-links a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px;
+    color: var(--text-soft); text-decoration: none; border-radius: 8px;
+  }
+  .foot-links a:hover { color: var(--text); text-decoration: underline; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .nav-link { display: none; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding-left: 20px; padding-right: 20px; }
+    .nav-shell { padding: 12px 12px 0; }
+    .nav { padding-left: 14px; }
+    .nav-cta { padding: 11px 14px; font-size: 14.5px; }
+    .hero { padding-top: 44px; padding-bottom: 48px; gap: 36px; }
+    .hero-copy, .calc { flex-basis: 100%; }
+    .hero-lead { font-size: 18px; }
+    .toggle { display: flex; }
+    .toggle button { flex: 1 1 0; padding: 12px 8px; font-size: 15px; }
+    .cta-row .btn { flex: 1 1 100%; }
+    .calc { padding: 20px; border-radius: 22px; }
+    .result { padding: 18px; border-radius: 16px; }
+    .card, .bento-accent { padding: 24px; }
+    .step-num { margin-bottom: 24px; }
+    .how { padding-top: 72px; }
+    .how .h-section { margin-bottom: 32px; }
+    .bento-sec { padding-bottom: 72px; }
+    .bento-small { min-height: 0; }
+    .bento-accent { min-height: 220px; }
+    .prices .wrap { padding-top: 72px; padding-bottom: 72px; }
+    .price-card { padding: 24px; flex-basis: 100%; }
+    .price-big { font-size: 52px; }
+    .faq { padding: 72px 20px; }
+    summary { padding: 18px 52px 18px 20px; font-size: 17px; }
+    summary::after { right: 22px; }
+    details p { padding: 0 20px 20px; }
+    .final-box { padding: 44px 24px; border-radius: 24px; }
+    .final-box .cta-row { width: 100%; }
+    .marquee-track { font-size: 22px; }
+    footer.wrap { flex-direction: column; align-items: flex-start; }
+    .foot-links { margin-left: -10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .lift:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#tartalom">Ugrás a tartalomra</a>
+
+<!-- NAV -->
+<header class="nav-shell">
+  <nav class="nav" aria-label="Fő navigáció">
+    <a href="#top" class="brand" aria-label="KlipLabor – vissza az oldal tetejére">
+      <svg width="26" height="26" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M24 8h16" stroke="#C6F432" stroke-width="5" stroke-linecap="round"/><path d="M27 8v16L13 49a4 4 0 0 0 3.5 6h31a4 4 0 0 0 3.5-6L37 24V8" stroke="#C6F432" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 36v13l11-6.5z" fill="#C6F432"/></svg>
+      <span class="brand-name">KlipLabor</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="#hogyan">Hogyan működik</a>
+      <a class="nav-link" href="#dijak">Díjak</a>
+      <a class="nav-link" href="#gyik">GYIK</a>
+      <a class="nav-cta lift" href="#kalkulator" id="nav-cta">Mennyit kereshetek?</a>
+    </div>
+  </nav>
+</header>
+
+<main id="tartalom">
+
+  <!-- HERO + KALKULÁTOR -->
+  <section id="top" class="wrap hero">
+
+    <div class="hero-copy">
+      <p class="eyebrow">Magyar clipping platform</p>
+      <h1>Itt készülnek a virális klipek.</h1>
+
+      <div class="toggle" role="group" aria-label="Kinek szól az oldal">
+        <button type="button" data-set-mode="clipper" aria-pressed="true">Clipper vagyok</button>
+        <button type="button" data-set-mode="streamer" aria-pressed="false">Streamer vagyok</button>
+      </div>
+
+      <div data-mode="clipper">
+        <p class="hero-lead">Vágj klipeket magyar streamerek adásaiból, posztold a saját oldaladra, és minden ellenőrzött megtekintés után fizetünk.</p>
+        <div class="cta-row">
+          <a class="btn btn-accent lift" data-link="clipperForm" href="#kalkulator">Csatlakozom clipperként</a>
+          <a class="btn btn-ghost" href="#hogyan">Hogyan működik?</a>
+        </div>
+      </div>
+
+      <div data-mode="streamer" hidden>
+        <p class="hero-lead">Egy clipper csapat vágja és posztolja a legjobb pillanataidat. Csak az ellenőrzött megtekintésekért fizetsz, a keretet te szabod meg.</p>
+        <div class="cta-row">
+          <a class="btn btn-accent lift" data-link="streamerForm" href="#kalkulator">Ajánlatot kérek</a>
+          <a class="btn btn-ghost" href="#hogyan">Hogyan működik?</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="kalkulator" class="calc">
+
+      <!-- Clipper kalkulátor -->
+      <div data-mode="clipper">
+        <div class="calc-head">
+          <h2>Kereset kalkulátor</h2>
+          <span class="rate">150&nbsp;Ft / 1000 megtekintés</span>
+        </div>
+        <div class="field">
+          <div class="field-top">
+            <label for="kl-views">Havi megtekintésed összesen</label>
+            <output class="num" id="kl-views-out" for="kl-views">300&nbsp;000 megtekintés</output>
+          </div>
+          <input id="kl-views" type="range" min="10000" max="2000000" step="10000" value="300000">
+        </div>
+        <div class="stepper-row" role="group" aria-labelledby="kl-viral-label">
+          <span class="lbl" id="kl-viral-label">Ebből 100&nbsp;000 feletti klipek száma</span>
+          <div class="stepper">
+            <button type="button" id="kl-viral-down" aria-label="Kevesebb virális klip">−</button>
+            <span class="stepper-val num" id="kl-viral" aria-live="polite">1</span>
+            <button type="button" id="kl-viral-up" aria-label="Több virális klip">+</button>
+          </div>
+        </div>
+        <div class="result">
+          <p class="result-label">Becsült havi kereset</p>
+          <p class="result-value num" id="kl-earn" aria-live="polite">50&nbsp;000&nbsp;Ft</p>
+        </div>
+        <div class="breakdown">
+          <div><span>Megtekintések után</span><span class="num" id="kl-base">45&nbsp;000&nbsp;Ft</span></div>
+          <div><span>Virális bónusz (5&nbsp;000&nbsp;Ft / klip)</span><span class="num" id="kl-bonus">5&nbsp;000&nbsp;Ft</span></div>
+        </div>
+        <p class="calc-note">Számítás a KlipLabor díjai alapján. A nézettség a klipjeiden múlik, nem garantált.</p>
+      </div>
+
+      <!-- Streamer kalkulátor -->
+      <div data-mode="streamer" hidden>
+        <div class="calc-head">
+          <h2>Kampány kalkulátor</h2>
+          <span class="rate">300&nbsp;Ft / 1000 megtekintés</span>
+        </div>
+        <div class="field">
+          <div class="field-top">
+            <label for="kl-budget">Havi megtekintési keret</label>
+            <output class="num" id="kl-budget-out" for="kl-budget">100&nbsp;000&nbsp;Ft</output>
+          </div>
+          <input id="kl-budget" type="range" min="50000" max="500000" step="10000" value="100000">
+        </div>
+        <div class="result" style="margin-top: 20px">
+          <p class="result-label">Ennyi ellenőrzött megtekintésre elég</p>
+          <p class="result-value num" id="kl-reach" aria-live="polite">kb.&nbsp;333&nbsp;333</p>
+        </div>
+        <div class="breakdown">
+          <div><span>Megtekintési keret</span><span class="num" id="kl-budget-row">100&nbsp;000&nbsp;Ft</span></div>
+          <div><span>Kampánykezelés</span><span>30&nbsp;000&nbsp;Ft / hó</span></div>
+          <div class="total"><span>Havi maximum összesen</span><span class="num" id="kl-total">130&nbsp;000&nbsp;Ft</span></div>
+        </div>
+        <p class="calc-note">A keret felső határ: ha kevesebb megtekintés jön, a megtekintési díjból is kevesebbet fizetsz.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FUTÓ SZÖVEG (dekoráció) -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>TikTok <i>/</i> Instagram Reels <i>/</i> YouTube Shorts <i>/</i> Twitch <i>/</i> Kick <i>/</i> YouTube <i>/</i> Podcastok <i>/</i></span>
+      <span>TikTok <i>/</i> Instagram Reels <i>/</i> YouTube Shorts <i>/</i> Twitch <i>/</i> Kick <i>/</i> YouTube <i>/</i> Podcastok <i>/</i></span>
+      <span>TikTok <i>/</i> Instagram Reels <i>/</i> YouTube Shorts <i>/</i> Twitch <i>/</i> Kick <i>/</i> YouTube <i>/</i> Podcastok <i>/</i></span>
+      <span>TikTok <i>/</i> Instagram Reels <i>/</i> YouTube Shorts <i>/</i> Twitch <i>/</i> Kick <i>/</i> YouTube <i>/</i> Podcastok <i>/</i></span>
+    </div>
+  </div>
+
+  <!-- HOGYAN MŰKÖDIK -->
+  <section id="hogyan" class="wrap how">
+    <p class="eyebrow">Hogyan működik</p>
+    <h2 class="h-section">Három lépés, és megy a labor.</h2>
+
+    <div data-mode="clipper">
+      <ol class="steps">
+        <li class="card">
+          <p class="step-num">01</p>
+          <h3>Jelentkezz és válassz kampányt</h3>
+          <p>Megkapod az aktív kampányokat a szabályokkal, a díjjal és a kerettel együtt.</p>
+        </li>
+        <li class="card">
+          <p class="step-num">02</p>
+          <h3>Vágj és posztolj</h3>
+          <p>A saját TikTok, Reels vagy Shorts oldaladra. A poszt linkjét beküldöd nekünk.</p>
+        </li>
+        <li class="card">
+          <p class="step-num">03</p>
+          <h3>Jön a kifizetés</h3>
+          <p>Hetente küldesz egy képernyőképet a statisztikádról, mi ellenőrizzük, és kéthetente utalunk.</p>
+        </li>
+      </ol>
+      <div class="steps-extra">
+        <a class="btn btn-ghost" data-link="clipSubmitForm" href="#" hidden>Klip beküldése</a>
+      </div>
+    </div>
+
+    <div data-mode="streamer" hidden>
+      <ol class="steps">
+        <li class="card">
+          <p class="step-num">01</p>
+          <h3>Kampányt indítasz</h3>
+          <p>Megadod a csatornád, a havi keretet és a szabályokat. A clippereket mi készítjük fel.</p>
+        </li>
+        <li class="card">
+          <p class="step-num">02</p>
+          <h3>A clipperek dolgoznak</h3>
+          <p>A legjobb pillanataidból rövid videók készülnek, három platformon egyszerre.</p>
+        </li>
+        <li class="card">
+          <p class="step-num">03</p>
+          <h3>Riportot kapsz</h3>
+          <p>Látod, hány klip készült, mennyi nézőt hozott, és mennyi maradt a keretből.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- MIÉRT -->
+  <section class="wrap bento-sec" aria-label="Miért a KlipLabor">
+    <div class="bento">
+
+      <div class="card bento-wide">
+        <div>
+          <h3>Csak a valódi nézettség számít</h3>
+          <p>Minden klipet linkkel és heti statisztikával ellenőrzünk. A vett nézettségért nem jár pénz, és kizárással jár.</p>
+        </div>
+        <div class="rows">
+          <div class="row">
+            <span>[Clipper neve] · TikTok</span>
+            <span class="chip chip-ok">Jóváhagyva</span>
+          </div>
+          <div class="row">
+            <span>[Clipper neve] · Reels</span>
+            <span class="chip chip-wait">Ellenőrzés alatt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-accent">
+        <p class="big" aria-hidden="true">3</p>
+        <div>
+          <h3><span class="sr-only">3 </span>platform egyszerre</h3>
+          <p>TikTok, Instagram Reels és YouTube Shorts.</p>
+        </div>
+      </div>
+
+      <div class="card bento-small">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" stroke="#C6F432" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="#C6F432" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3>Kéthetente fizetünk</h3><p>Banki átutalással, a jóváhagyott klipek után.</p></div>
+      </div>
+
+      <div class="card bento-small">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" stroke="#C6F432" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.5 10" stroke="#C6F432" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><h3>A keret a plafon</h3><p>A streamer soha nem fizet többet, mint amennyit beállított.</p></div>
+      </div>
+
+      <div class="card bento-small">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#C6F432" stroke-width="2" stroke-linecap="round"/></svg>
+        <div><h3>Riport minden kampányról</h3><p>Klipek, megtekintések, felhasznált keret, egy helyen.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DÍJAK -->
+  <section id="dijak" class="prices">
+    <div class="wrap">
+      <p class="eyebrow">Díjak</p>
+      <h2 class="h-section">Minden szám, egy helyen.</h2>
+      <div class="price-grid">
+        <div class="price-card">
+          <h3>Streamereknek</h3>
+          <p class="price-big">300&nbsp;Ft</p>
+          <p class="price-sub">1000 ellenőrzött megtekintésenként</p>
+          <dl>
+            <div><dt>Kampánykezelés</dt><dd>30&nbsp;000&nbsp;Ft / hó</dd></div>
+            <div><dt>Minimum keret</dt><dd>50&nbsp;000&nbsp;Ft</dd></div>
+            <div><dt>Próbaidőszak</dt><dd>2 hét, kisebb kerettel</dd></div>
+          </dl>
+        </div>
+        <div class="price-card">
+          <h3>Clippereknek</h3>
+          <p class="price-big accent">150&nbsp;Ft</p>
+          <p class="price-sub">1000 ellenőrzött megtekintésenként</p>
+          <dl>
+            <div><dt>Virális bónusz</dt><dd>+5&nbsp;000&nbsp;Ft / klip</dd></div>
+            <div><dt>Bónusz határa</dt><dd>100&nbsp;000 megtekintés felett</dd></div>
+            <div><dt>Kifizetés</dt><dd>kéthetente, utalással</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GYIK -->
+  <section id="gyik" class="faq">
+    <h2>Gyakori kérdések</h2>
+    <div class="faq-list">
+      <details><summary>Hogyan ellenőrzitek a nézettséget?</summary><p>A clipperek beküldik a posztjuk linkjét, és hetente egy képernyőképet a platform statisztikájáról. Ezt összevetjük a poszt nyilvános számaival.</p></details>
+      <details><summary>Kell tapasztalat a clippeléshez?</summary><p>Nem. Egy telefon és egy vágóprogram, például a CapCut elég. Az elején rövid útmutatót adunk.</p></details>
+      <details><summary>Kié a klip, és ki posztolja?</summary><p>A clipperek a saját oldalukra posztolnak, a streamer engedélyével és a kampány szabályai szerint.</p></details>
+      <details><summary>Mi történik, ha elfogy a keret?</summary><p>A kampány megáll, és a streamer dönt: feltölti a keretet, vagy lezárja a kampányt.</p></details>
+    </div>
+  </section>
+
+  <!-- ZÁRÓ CTA -->
+  <section class="wrap final" aria-labelledby="final-cim">
+    <div class="final-box">
+      <h2 id="final-cim">Gyere a laborba.</h2>
+      <div class="cta-row">
+        <a class="btn btn-dark lift" data-link="clipperForm" href="#kalkulator">Clipper vagyok</a>
+        <a class="btn btn-outline-dark lift" data-link="streamerForm" href="#kalkulator">Streamer vagyok</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span class="foot-brand">KlipLabor</span>
+  <div class="foot-links">
+    <a data-link="instagram" href="#" hidden>Instagram</a>
+    <a data-link="tiktok" href="#" hidden>TikTok</a>
+    <a data-link="email" href="#" hidden>E-mail</a>
+  </div>
+  <span>© 2026 KlipLabor</span>
+</footer>
+
+<script>
+  /* ================================================================
+     LINKEK – csak ezt a részt kell kitölteni.
+     Az idézőjelek közé írd be a linket. Ha egy sor üres marad,
+     az ahhoz tartozó gomb (vagy lábléc link) nem jelenik meg.
+     Kivétel: a streamer és clipper jelentkezés gombjai üres link
+     esetén is látszanak, és a kalkulátorhoz ugranak.
+     ================================================================ */
+  const LINKEK = {
+    streamerForm:   "",  // Google űrlap: streamer jelentkezés
+    clipperForm:    "",  // Google űrlap: clipper jelentkezés
+    clipSubmitForm: "",  // Google űrlap: klip beküldés + heti statisztika
+    instagram:      "",  // pl. https://www.instagram.com/kliplabor
+    tiktok:         "",  // pl. https://www.tiktok.com/@kliplabor
+    email:          ""   // pl. hello@kliplabor.hu
+  };
+  /* ================= Innentől nem kell semmit átírni. ================= */
+
+  function applyLinks(cfg) {
+    document.querySelectorAll('[data-link]').forEach(function (el) {
+      var key = el.getAttribute('data-link');
+      var url = String((cfg && cfg[key]) || '').trim();
+      el.hidden = false;
+      el.removeAttribute('target');
+      el.removeAttribute('rel');
+      el.removeAttribute('data-fallback-mode');
+      if (!url) {
+        // Amíg nincs űrlap, a streamer és clipper gombok a kalkulátorra ugranak a megfelelő nézetben.
+        if (key === 'streamerForm') { el.setAttribute('href', '#kalkulator'); el.setAttribute('data-fallback-mode', 'streamer'); return; }
+        if (key === 'clipperForm')  { el.setAttribute('href', '#kalkulator'); el.setAttribute('data-fallback-mode', 'clipper');  return; }
+        el.hidden = true;
+        return;
+      }
+      if (key === 'email') {
+        var cim = url.replace(/^mailto:/i, '');
+        el.setAttribute('href', 'mailto:' + cim);
+        el.textContent = cim;
+        return;
+      }
+      el.setAttribute('href', url);
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
+    });
+  }
+  applyLinks(LINKEK);
+
+  (function () {
+    var NBSP = ' ';
+    var state = { mode: 'clipper', views: 300000, viral: 1, budget: 100000 };
+
+    function fmt(n) {
+      return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, NBSP);
+    }
+    function $(id) { return document.getElementById(id); }
+    function clamp(n, lo, hi) { return Math.min(hi, Math.max(lo, n)); }
+
+    var viewsInput = $('kl-views');
+    var budgetInput = $('kl-budget');
+    var modeButtons = document.querySelectorAll('.toggle [data-set-mode]');
+    var modeBlocks = document.querySelectorAll('[data-mode]');
+
+    function renderClipper() {
+      var base = state.views / 1000 * 150;
+      var bonus = state.viral * 5000;
+      var viewsText = fmt(state.views) + ' megtekintés';
+      $('kl-views-out').textContent = viewsText;
+      viewsInput.setAttribute('aria-valuetext', viewsText);
+      $('kl-viral').textContent = String(state.viral);
+      $('kl-viral-down').disabled = state.viral <= 0;
+      $('kl-viral-up').disabled = state.viral >= 20;
+      $('kl-base').textContent = fmt(base) + NBSP + 'Ft';
+      $('kl-bonus').textContent = fmt(bonus) + NBSP + 'Ft';
+      $('kl-earn').textContent = fmt(base + bonus) + NBSP + 'Ft';
+    }
+
+    function renderStreamer() {
+      var budgetText = fmt(state.budget) + NBSP + 'Ft';
+      $('kl-budget-out').textContent = budgetText;
+      budgetInput.setAttribute('aria-valuetext', budgetText);
+      $('kl-budget-row').textContent = budgetText;
+      $('kl-reach').textContent = 'kb.' + NBSP + fmt(state.budget / 300 * 1000);
+      $('kl-total').textContent = fmt(state.budget + 30000) + NBSP + 'Ft';
+    }
+
+    function renderMode() {
+      var isClipper = state.mode === 'clipper';
+      modeBlocks.forEach(function (el) {
+        el.hidden = el.getAttribute('data-mode') !== state.mode;
+      });
+      modeButtons.forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(btn.getAttribute('data-set-mode') === state.mode));
+      });
+      $('nav-cta').textContent = isClipper ? 'Mennyit kereshetek?' : 'Kampányt számolok';
+      document.documentElement.setAttribute('data-aktiv-mod', state.mode);
+    }
+
+    function setMode(mode, remember) {
+      if (mode !== 'clipper' && mode !== 'streamer') { return; }
+      state.mode = mode;
+      renderMode();
+      if (remember) {
+        // A címsorban is megjegyezzük, hogy a link megosztható legyen (?mod=streamer).
+        try {
+          var url = new URL(window.location.href);
+          if (mode === 'streamer') { url.searchParams.set('mod', 'streamer'); }
+          else { url.searchParams.delete('mod'); }
+          if (url.hash === '#streamer' || url.hash === '#clipper') { url.hash = ''; }
+          history.replaceState(null, '', url.toString());
+        } catch (e) { /* file:// vagy régi böngésző: nem baj */ }
+      }
+    }
+
+    function modeFromUrl() {
+      var mode = null;
+      try {
+        var q = (new URLSearchParams(window.location.search).get('mod') || '').toLowerCase();
+        if (q === 'streamer' || q === 'clipper') { mode = q; }
+      } catch (e) { /* nincs URLSearchParams */ }
+      var h = (window.location.hash || '').replace('#', '').toLowerCase();
+      if (h === 'streamer' || h === 'clipper') { mode = h; }
+      return mode;
+    }
+
+    modeButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () { setMode(btn.getAttribute('data-set-mode'), true); });
+    });
+
+    // Űrlap nélküli jelentkezés gombok: a kalkulátor megfelelő nézetét nyitják meg.
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('[data-fallback-mode]') : null;
+      if (el) { setMode(el.getAttribute('data-fallback-mode'), true); }
+    });
+
+    function onViews() {
+      state.views = clamp(Number(viewsInput.value) || 0, 10000, 2000000);
+      renderClipper();
+    }
+    function onBudget() {
+      state.budget = clamp(Number(budgetInput.value) || 0, 50000, 500000);
+      renderStreamer();
+    }
+    viewsInput.addEventListener('input', onViews);
+    viewsInput.addEventListener('change', onViews);
+    budgetInput.addEventListener('input', onBudget);
+    budgetInput.addEventListener('change', onBudget);
+
+    $('kl-viral-down').addEventListener('click', function () {
+      state.viral = clamp(state.viral - 1, 0, 20);
+      renderClipper();
+    });
+    $('kl-viral-up').addEventListener('click', function () {
+      state.viral = clamp(state.viral + 1, 0, 20);
+      renderClipper();
+    });
+
+    window.addEventListener('hashchange', function () {
+      var m = modeFromUrl();
+      var h = (window.location.hash || '').toLowerCase();
+      if (m && (h === '#streamer' || h === '#clipper')) { setMode(m, false); }
+    });
+
+    // Indulás: a böngésző által visszaállított csúszkaértékeket is figyelembe vesszük.
+    state.views = clamp(Number(viewsInput.value) || 300000, 10000, 2000000);
+    state.budget = clamp(Number(budgetInput.value) || 100000, 50000, 500000);
+    var initial = modeFromUrl();
+    if (initial) { state.mode = initial; }
+    renderClipper();
+    renderStreamer();
+    renderMode();
+  })();
+</script>
+</body>
+</html>
