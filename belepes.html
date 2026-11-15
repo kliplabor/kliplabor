@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Belépés – KlipLabor</title>
+<meta name="description" content="Lépj be a KlipLabor clipper felületére, vagy regisztrálj clipperként.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08090B">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<a class="skip" href="#tartalom">Ugrás a tartalomra</a>
+
+<header class="nav-shell">
+  <nav class="nav" aria-label="Fő navigáció">
+    <a href="index.html" class="brand" aria-label="KlipLabor – főoldal">
+      <svg width="26" height="26" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M24 8h16" stroke="#C6F432" stroke-width="5" stroke-linecap="round"/><path d="M27 8v16L13 49a4 4 0 0 0 3.5 6h31a4 4 0 0 0 3.5-6L37 24V8" stroke="#C6F432" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 36v13l11-6.5z" fill="#C6F432"/></svg>
+      <span class="brand-name">KlipLabor</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link" href="index.html">Főoldal</a>
+    </div>
+  </nav>
+</header>
+
+<main id="tartalom" class="wrap wrap-narrow auth-main">
+  <p class="eyebrow">Clipper felület</p>
+  <h1 class="h-page" id="auth-title">Belépés</h1>
+
+  <div id="page-msg" class="msg" role="alert" hidden></div>
+
+  <div class="card auth-card">
+    <div class="tabs" role="tablist" aria-label="Belépés vagy regisztráció">
+      <button type="button" class="tab" role="tab" id="tab-belepes" aria-controls="panel-belepes" aria-selected="true" data-tab="belepes">Belépés</button>
+      <button type="button" class="tab" role="tab" id="tab-regisztracio" aria-controls="panel-regisztracio" aria-selected="false" tabindex="-1" data-tab="regisztracio">Regisztráció</button>
+      <button type="button" class="tab" role="tab" id="tab-elfelejtett" aria-controls="panel-elfelejtett" aria-selected="false" tabindex="-1" data-tab="elfelejtett">Elfelejtett jelszó</button>
+    </div>
+
+    <!-- BELÉPÉS -->
+    <section id="panel-belepes" role="tabpanel" aria-labelledby="tab-belepes" style="margin-top:24px">
+      <form id="login-form" class="form" novalidate>
+        <div class="fld">
+          <label for="login-email">E-mail cím</label>
+          <input class="input" id="login-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="fld">
+          <label for="login-password">Jelszó</label>
+          <input class="input" id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <div id="login-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <button class="btn btn-accent btn-block" type="submit">Belépek</button>
+        <p class="hint">Még nincs fiókod? <a href="#regisztracio" data-goto="regisztracio">Regisztrálj clipperként.</a></p>
+      </form>
+    </section>
+
+    <!-- REGISZTRÁCIÓ -->
+    <section id="panel-regisztracio" role="tabpanel" aria-labelledby="tab-regisztracio" style="margin-top:24px" hidden>
+      <form id="signup-form" class="form" novalidate>
+        <div class="fld">
+          <label for="su-name">Név</label>
+          <input class="input" id="su-name" name="name" type="text" autocomplete="name" maxlength="120" required aria-describedby="su-name-err">
+          <p class="fld-error" id="su-name-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label for="su-email">E-mail cím</label>
+          <input class="input" id="su-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="su-email-err">
+          <p class="fld-error" id="su-email-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label for="su-password">Jelszó</label>
+          <input class="input" id="su-password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="su-password-hint su-password-err">
+          <p class="hint" id="su-password-hint">Legalább 8 karakter.</p>
+          <p class="fld-error" id="su-password-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label class="check" for="su-adult">
+            <input id="su-adult" name="adult" type="checkbox" required aria-describedby="su-adult-err">
+            <span>Elmúltam 18 éves.</span>
+          </label>
+          <p class="fld-error" id="su-adult-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label class="check" for="su-rules">
+            <input id="su-rules" name="rules" type="checkbox" required aria-describedby="su-rules-err">
+            <span>Elfogadom a <a href="szabalyzat.html" target="_blank" rel="noopener">clipper szabályzatot</a> és az <a href="adatvedelem.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>.</span>
+          </label>
+          <p class="fld-error" id="su-rules-err" hidden></p>
+        </div>
+        <div id="signup-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <button class="btn btn-accent btn-block" type="submit">Regisztrálok</button>
+        <p class="hint">Bankszámlaszámot itt nem kérünk. Azt az első kifizetés előtt, privát úton kérjük el.</p>
+      </form>
+      <div id="signup-done" class="stack" hidden tabindex="-1">
+        <h2 class="h-sec">Nézd meg az e-mailjeidet</h2>
+        <p class="soft">Küldtünk egy megerősítő linket a(z) <strong id="signup-done-email"></strong> címre. Kattints rá, és utána be tudsz lépni. Ha pár percen belül nem jön meg, nézd meg a spam mappát is.</p>
+        <button type="button" class="btn btn-ghost" data-goto="belepes">Vissza a belépéshez</button>
+      </div>
+    </section>
+
+    <!-- ELFELEJTETT JELSZÓ -->
+    <section id="panel-elfelejtett" role="tabpanel" aria-labelledby="tab-elfelejtett" style="margin-top:24px" hidden>
+      <form id="reset-form" class="form" novalidate>
+        <p class="soft">Írd be az e-mail címedet, és küldünk egy linket, amivel új jelszót állíthatsz be.</p>
+        <div class="fld">
+          <label for="reset-email">E-mail cím</label>
+          <input class="input" id="reset-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+        </div>
+        <div id="reset-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <button class="btn btn-accent btn-block" type="submit">Küldd a linket</button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap site-foot">
+  <span class="foot-brand">KlipLabor</span>
+  <div class="foot-links">
+    <a href="szabalyzat.html">Szabályzat</a>
+    <a href="adatvedelem.html">Adatvédelem</a>
+    <a data-link="instagram" href="#" hidden>Instagram</a>
+    <a data-link="tiktok" href="#" hidden>TikTok</a>
+    <a data-link="email" href="#" hidden>E-mail</a>
+  </div>
+  <span>© 2026 KlipLabor</span>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/belepes.js"></script>
+</body>
+</html>

@@ -315,6 +315,11 @@
   /* ---------- Responsive ---------- */
   @media (max-width: 860px) {
     .nav-link { display: none; }
+    .nav-link.nav-login { display: inline-flex; }
+  }
+  @media (max-width: 440px) {
+    .nav-cta { display: none; }
+    .nav-link.nav-login { border: 1px solid var(--line-strong); color: var(--text); font-weight: 600; padding: 10px 16px; border-radius: 12px; }
   }
   @media (max-width: 600px) {
     .wrap { padding-left: 20px; padding-right: 20px; }
@@ -340,6 +345,8 @@
     .price-card { padding: 24px; flex-basis: 100%; }
     .price-big { font-size: 52px; }
     .faq { padding: 72px 20px; }
+    .offer { padding-top: 72px; gap: 28px; }
+    .offer-card { padding: 20px; border-radius: 22px; }
     summary { padding: 18px 52px 18px 20px; font-size: 17px; }
     summary::after { right: 22px; }
     details p { padding: 0 20px 20px; }
@@ -349,6 +356,45 @@
     footer.wrap { flex-direction: column; align-items: flex-start; }
     .foot-links { margin-left: -10px; }
   }
+
+  /* ---------- Streamer ajánlatkérő ---------- */
+  .offer { padding-top: 104px; padding-bottom: 24px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start; }
+  .offer-copy { flex: 1 1 360px; min-width: 0; }
+  .offer-copy .eyebrow { margin-bottom: 12px; }
+  .offer-copy .h-section { margin-bottom: 20px; }
+  .offer-copy > p { color: var(--text-soft); max-width: 44ch; font-size: 18px; }
+  .offer-list { margin: 24px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .offer-list li { display: flex; gap: 12px; align-items: flex-start; color: var(--text-soft); }
+  .offer-list li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 9px; border-radius: 50%; background: var(--accent); }
+  .offer-card { flex: 1 1 460px; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 28px; }
+  .form { display: flex; flex-direction: column; gap: 18px; }
+  .form-row { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .fld > label { font-size: 15px; font-weight: 500; color: var(--text-soft); }
+  .input {
+    width: 100%; min-height: 50px; padding: 12px 14px;
+    background: var(--surface-2); color: var(--text);
+    border: 1px solid var(--line-strong); border-radius: 12px;
+    font: inherit; font-size: 16px; line-height: 1.4;
+  }
+  textarea.input { min-height: 110px; resize: vertical; }
+  select.input { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%), linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px; background-repeat: no-repeat; }
+  .input::placeholder { color: var(--muted); }
+  .input:hover { border-color: var(--line-bright); }
+  .input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-radius: 12px; }
+  .input[aria-invalid="true"], .check input[aria-invalid="true"] { border-color: #FF8A7A; outline-color: #FF8A7A; }
+  .check { display: flex; gap: 12px; align-items: flex-start; min-height: 44px; padding: 6px 0; cursor: pointer; font-size: 15px; color: var(--text-soft); }
+  .check input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent); flex: none; cursor: pointer; }
+  .hint { font-size: 14px; color: var(--muted); }
+  .msg { border-radius: 14px; padding: 14px 16px; font-size: 15px; border: 1px solid var(--line-strong); background: var(--surface-2); }
+  .msg-err { border-color: #7A3229; color: #FF8A7A; }
+  .msg-ok { border-color: var(--accent); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .offer-done { display: flex; flex-direction: column; gap: 14px; }
+  .offer-done h3 { font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; line-height: 1.15; }
+  .offer-done p { color: var(--text-soft); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -372,6 +418,7 @@
       <a class="nav-link" href="#hogyan">Hogyan működik</a>
       <a class="nav-link" href="#dijak">Díjak</a>
       <a class="nav-link" href="#gyik">GYIK</a>
+      <a class="nav-link nav-login" href="belepes.html">Belépés</a>
       <a class="nav-cta lift" href="#kalkulator" id="nav-cta">Mennyit kereshetek?</a>
     </div>
   </nav>
@@ -394,7 +441,7 @@
       <div data-mode="clipper">
         <p class="hero-lead">Vágj klipeket magyar streamerek adásaiból, posztold a saját oldaladra, és minden ellenőrzött megtekintés után fizetünk.</p>
         <div class="cta-row">
-          <a class="btn btn-accent lift" data-link="clipperForm" href="#kalkulator">Csatlakozom clipperként</a>
+          <a class="btn btn-accent lift" href="belepes.html#regisztracio">Csatlakozom clipperként</a>
           <a class="btn btn-ghost" href="#hogyan">Hogyan működik?</a>
         </div>
       </div>
@@ -402,7 +449,7 @@
       <div data-mode="streamer" hidden>
         <p class="hero-lead">Egy clipper csapat vágja és posztolja a legjobb pillanataidat. Csak az ellenőrzött megtekintésekért fizetsz, a keretet te szabod meg.</p>
         <div class="cta-row">
-          <a class="btn btn-accent lift" data-link="streamerForm" href="#kalkulator">Ajánlatot kérek</a>
+          <a class="btn btn-accent lift" href="#ajanlat" data-fallback-mode="streamer">Ajánlatot kérek</a>
           <a class="btn btn-ghost" href="#hogyan">Hogyan működik?</a>
         </div>
       </div>
@@ -504,7 +551,7 @@
         </li>
       </ol>
       <div class="steps-extra">
-        <a class="btn btn-ghost" data-link="clipSubmitForm" href="#" hidden>Klip beküldése</a>
+        <a class="btn btn-ghost" href="clipper.html#bekuldes">Már clipper vagy? Klip beküldése</a>
       </div>
     </div>
 
@@ -606,6 +653,69 @@
     </div>
   </section>
 
+  <!-- STREAMER AJÁNLATKÉRÉS -->
+  <section id="ajanlat" class="wrap offer" aria-labelledby="ajanlat-cim">
+    <div class="offer-copy">
+      <p class="eyebrow">Streamereknek és podcastoknak</p>
+      <h2 class="h-section" id="ajanlat-cim">Kérj ajánlatot.</h2>
+      <p>Írd meg, hol streamelsz és nagyjából mekkora kerettel számolnál. E-mailben válaszolunk, és megbeszéljük a részleteket.</p>
+      <ul class="offer-list">
+        <li>300&nbsp;Ft / 1000 ellenőrzött megtekintés, a keretedig</li>
+        <li>Kampánykezelés: 30&nbsp;000&nbsp;Ft / hó</li>
+        <li>Indulhatsz egy 2 hetes próbával, kisebb kerettel</li>
+      </ul>
+    </div>
+
+    <div class="offer-card">
+      <form id="offer-form" class="form" novalidate>
+        <div class="form-row">
+          <div class="fld">
+            <label for="of-name">Neved vagy a csatornád neve</label>
+            <input class="input" id="of-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+          </div>
+          <div class="fld">
+            <label for="of-email">E-mail cím</label>
+            <input class="input" id="of-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="of-channel">A csatornád linkje</label>
+          <input class="input" id="of-channel" name="channel" type="url" inputmode="url" maxlength="300" placeholder="https://www.twitch.tv/csatornad" required>
+        </div>
+        <div class="fld">
+          <label for="of-budget">Havi megtekintési keret</label>
+          <select class="input" id="of-budget" name="budget" required>
+            <option value="">Válassz…</option>
+            <option value="proba">Először az ingyenes próbakampány érdekel</option>
+            <option value="50_100">50 000 – 100 000 Ft / hó</option>
+            <option value="100_250">100 000 – 250 000 Ft / hó</option>
+            <option value="250_500">250 000 – 500 000 Ft / hó</option>
+            <option value="500_felett">500 000 Ft / hó felett</option>
+            <option value="nem_tudom">Még nem tudom</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="of-message">Üzenet (nem kötelező)</label>
+          <textarea class="input" id="of-message" name="message" maxlength="2000" placeholder="Miről szól a csatornád, milyen tartalmakból lehetne vágni?"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="of-website">Weboldal (ezt hagyd üresen)</label>
+          <input id="of-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="check" for="of-consent">
+          <input id="of-consent" name="consent" type="checkbox" required>
+          <span>Elolvastam az <a href="adatvedelem.html" target="_blank" rel="noopener">adatkezelési tájékoztatót</a>, és hozzájárulok, hogy az ajánlat miatt felvegyétek velem a kapcsolatot.</span>
+        </label>
+        <div id="offer-msg" class="msg" role="status" aria-live="polite" hidden></div>
+        <button class="btn btn-accent lift" type="submit" id="offer-submit">Ajánlatot kérek</button>
+      </form>
+      <div id="offer-done" class="offer-done" hidden tabindex="-1">
+        <h3>Megkaptuk, köszönjük!</h3>
+        <p>Hamarosan írunk a(z) <strong id="offer-done-email"></strong> címre. Ha addig kérdésed van, válaszolj nyugodtan arra az e-mailre.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- GYIK -->
   <section id="gyik" class="faq">
     <h2>Gyakori kérdések</h2>
@@ -622,8 +732,8 @@
     <div class="final-box">
       <h2 id="final-cim">Gyere a laborba.</h2>
       <div class="cta-row">
-        <a class="btn btn-dark lift" data-link="clipperForm" href="#kalkulator">Clipper vagyok</a>
-        <a class="btn btn-outline-dark lift" data-link="streamerForm" href="#kalkulator">Streamer vagyok</a>
+        <a class="btn btn-dark lift" href="belepes.html#regisztracio">Clipper vagyok</a>
+        <a class="btn btn-outline-dark lift" href="#ajanlat" data-fallback-mode="streamer">Streamer vagyok</a>
       </div>
     </div>
   </section>
@@ -633,6 +743,9 @@
 <footer class="wrap">
   <span class="foot-brand">KlipLabor</span>
   <div class="foot-links">
+    <a href="szabalyzat.html">Szabályzat</a>
+    <a href="adatvedelem.html">Adatvédelem</a>
+    <a href="belepes.html">Belépés</a>
     <a data-link="instagram" href="#" hidden>Instagram</a>
     <a data-link="tiktok" href="#" hidden>TikTok</a>
     <a data-link="email" href="#" hidden>E-mail</a>
@@ -640,52 +753,11 @@
   <span>© 2026 KlipLabor</span>
 </footer>
 
+<script src="assets/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+<script src="assets/app.js" defer></script>
 <script>
-  /* ================================================================
-     LINKEK – csak ezt a részt kell kitölteni.
-     Az idézőjelek közé írd be a linket. Ha egy sor üres marad,
-     az ahhoz tartozó gomb (vagy lábléc link) nem jelenik meg.
-     Kivétel: a streamer és clipper jelentkezés gombjai üres link
-     esetén is látszanak, és a kalkulátorhoz ugranak.
-     ================================================================ */
-  const LINKEK = {
-    streamerForm:   "",  // Google űrlap: streamer jelentkezés
-    clipperForm:    "",  // Google űrlap: clipper jelentkezés
-    clipSubmitForm: "",  // Google űrlap: klip beküldés + heti statisztika
-    instagram:      "",  // pl. https://www.instagram.com/kliplabor
-    tiktok:         "",  // pl. https://www.tiktok.com/@kliplabor
-    email:          ""   // pl. hello@kliplabor.hu
-  };
-  /* ================= Innentől nem kell semmit átírni. ================= */
-
-  function applyLinks(cfg) {
-    document.querySelectorAll('[data-link]').forEach(function (el) {
-      var key = el.getAttribute('data-link');
-      var url = String((cfg && cfg[key]) || '').trim();
-      el.hidden = false;
-      el.removeAttribute('target');
-      el.removeAttribute('rel');
-      el.removeAttribute('data-fallback-mode');
-      if (!url) {
-        // Amíg nincs űrlap, a streamer és clipper gombok a kalkulátorra ugranak a megfelelő nézetben.
-        if (key === 'streamerForm') { el.setAttribute('href', '#kalkulator'); el.setAttribute('data-fallback-mode', 'streamer'); return; }
-        if (key === 'clipperForm')  { el.setAttribute('href', '#kalkulator'); el.setAttribute('data-fallback-mode', 'clipper');  return; }
-        el.hidden = true;
-        return;
-      }
-      if (key === 'email') {
-        var cim = url.replace(/^mailto:/i, '');
-        el.setAttribute('href', 'mailto:' + cim);
-        el.textContent = cim;
-        return;
-      }
-      el.setAttribute('href', url);
-      el.setAttribute('target', '_blank');
-      el.setAttribute('rel', 'noopener');
-    });
-  }
-  applyLinks(LINKEK);
-
+  /* A közösségi linkeket és az e-mail címet az assets/config.js fájlban kell beállítani. */
   (function () {
     var NBSP = ' ';
     var state = { mode: 'clipper', views: 300000, viral: 1, budget: 100000 };
@@ -767,7 +839,7 @@
       btn.addEventListener('click', function () { setMode(btn.getAttribute('data-set-mode'), true); });
     });
 
-    // Űrlap nélküli jelentkezés gombok: a kalkulátor megfelelő nézetét nyitják meg.
+    // A streamer ajánlatkérő gombok a streamer nézetre is átváltanak.
     document.addEventListener('click', function (e) {
       var el = e.target.closest ? e.target.closest('[data-fallback-mode]') : null;
       if (el) { setMode(el.getAttribute('data-fallback-mode'), true); }
@@ -809,6 +881,56 @@
     renderClipper();
     renderStreamer();
     renderMode();
+  })();
+</script>
+<script>
+  /* Streamer ajánlatkérő űrlap: a Supabase streamer_applications táblájába ír. */
+  (function () {
+    var form = document.getElementById('offer-form');
+    var msg = document.getElementById('offer-msg');
+    var btn = document.getElementById('offer-submit');
+    var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    function say(text, kind) { msg.textContent = text; msg.className = 'msg msg-' + kind; msg.hidden = !text; }
+    function invalid(input, text) { input.setAttribute('aria-invalid', 'true'); say(text, 'err'); input.focus(); }
+    function done(email) {
+      document.getElementById('offer-done-email').textContent = email;
+      form.hidden = true;
+      var box = document.getElementById('offer-done');
+      box.hidden = false;
+      box.focus();
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid]'), function (i) { i.removeAttribute('aria-invalid'); });
+      var name = document.getElementById('of-name'), email = document.getElementById('of-email');
+      var channel = document.getElementById('of-channel'), budget = document.getElementById('of-budget');
+      var message = document.getElementById('of-message'), consent = document.getElementById('of-consent');
+      var url = channel.value.trim();
+      if (url && !/^https?:\/\//i.test(url)) { url = 'https://' + url; channel.value = url; }
+      if (name.value.trim().length < 2) { return invalid(name, 'Add meg a neved vagy a csatornád nevét.'); }
+      if (!EMAIL_RE.test(email.value.trim())) { return invalid(email, 'Adj meg egy érvényes e-mail címet.'); }
+      if (!/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(url) || url.length > 300) { return invalid(channel, 'Add meg a csatornád linkjét (pl. https://www.twitch.tv/csatornad).'); }
+      if (!budget.value) { return invalid(budget, 'Válassz keretet. Ha még nem tudod, azt is választhatod.'); }
+      if (!consent.checked) { return invalid(consent, 'Az ajánlatkéréshez el kell fogadnod az adatkezelési tájékoztatót.'); }
+      // Robotcsapda: ha ez a rejtett mező ki van töltve, nem küldünk semmit.
+      if (document.getElementById('of-website').value) { done(email.value.trim()); return; }
+      var sb = window.KL && window.KL.client();
+      if (!sb) { say('Most nem sikerült elküldeni (nem töltődött be egy szükséges szkript). Frissítsd az oldalt, vagy próbáld később.', 'err'); return; }
+      btn.disabled = true;
+      btn.textContent = 'Küldés…';
+      say('', 'ok');
+      sb.from('streamer_applications').insert({
+        name: name.value.trim(), email: email.value.trim(), channel_url: url,
+        budget_band: budget.value, message: message.value.trim() || null, consent: true
+      }).then(function (res) {
+        if (res.error) { throw res.error; }
+        done(email.value.trim());
+      }).catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = 'Ajánlatot kérek';
+        say(window.KL.errorText(err), 'err');
+      });
+    });
   })();
 </script>
 </body>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin – KlipLabor</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08090B">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .clip-card { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); }
+  .shot { display: block; width: 100%; max-height: 360px; object-fit: contain; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; }
+  .shot-empty { display: flex; align-items: center; justify-content: center; min-height: 140px; color: var(--muted); font-size: 14px; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 14px; padding: 12px; text-align: center; }
+  .hist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .hist button { width: 100%; display: flex; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; background: var(--surface-2); color: var(--text-soft); border: 1px solid var(--line); border-radius: 10px; font: inherit; font-size: 14px; cursor: pointer; text-align: left; }
+  .hist button:hover, .hist button[aria-pressed="true"] { border-color: var(--accent); color: var(--text); }
+  .review { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); align-items: end; }
+  .review .fld { gap: 4px; }
+  .preview { font-size: 14px; color: var(--text-soft); }
+  .filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 18px; }
+  .filters .fld { flex: 1 1 200px; }
+  .usage-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .pay-form { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+  @media (max-width: 860px) { .clip-card { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#tartalom">Ugrás a tartalomra</a>
+
+<header class="nav-shell">
+  <nav class="nav" aria-label="Fő navigáció">
+    <a href="index.html" class="brand" aria-label="KlipLabor – főoldal">
+      <svg width="26" height="26" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M24 8h16" stroke="#C6F432" stroke-width="5" stroke-linecap="round"/><path d="M27 8v16L13 49a4 4 0 0 0 3.5 6h31a4 4 0 0 0 3.5-6L37 24V8" stroke="#C6F432" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 36v13l11-6.5z" fill="#C6F432"/></svg>
+      <span class="brand-name">KlipLabor</span>
+    </a>
+    <div class="nav-right">
+      <span class="nav-user" id="nav-user"></span>
+      <a class="nav-link" href="clipper.html">Clipper nézet</a>
+      <button type="button" class="nav-btn" data-action="kilepes">Kilépés</button>
+    </div>
+  </nav>
+</header>
+
+<main id="tartalom">
+  <div class="wrap page-head">
+    <p class="eyebrow">Admin</p>
+    <h1 class="h-page">Vezérlőpult</h1>
+  </div>
+
+  <div class="wrap">
+    <div id="page-msg" class="msg" role="alert" hidden></div>
+    <p id="page-loading" class="loading" role="status" aria-live="polite">Adatok betöltése…</p>
+    <div id="no-access" class="card stack" hidden>
+      <h2 class="h-card">Nincs jogosultságod</h2>
+      <p class="soft">Ez az oldal csak a KlipLabor adminjának érhető el. Ha clipper vagy, a saját felületeden látod a kampányaidat és a klipjeidet.</p>
+      <div><a class="btn btn-accent" href="clipper.html">Tovább a clipper felületre</a></div>
+    </div>
+  </div>
+
+  <div id="app" class="wrap" hidden>
+    <div class="tabs" role="tablist" aria-label="Admin részek">
+      <button type="button" class="tab" role="tab" id="tab-attekintes" aria-controls="panel-attekintes" aria-selected="true" data-tab="attekintes">Áttekintés</button>
+      <button type="button" class="tab" role="tab" id="tab-klipek" aria-controls="panel-klipek" aria-selected="false" tabindex="-1" data-tab="klipek">Klipek ellenőrzése<span class="count" id="count-pending"></span></button>
+      <button type="button" class="tab" role="tab" id="tab-kampanyok" aria-controls="panel-kampanyok" aria-selected="false" tabindex="-1" data-tab="kampanyok">Kampányok</button>
+      <button type="button" class="tab" role="tab" id="tab-clipperek" aria-controls="panel-clipperek" aria-selected="false" tabindex="-1" data-tab="clipperek">Clipperek</button>
+      <button type="button" class="tab" role="tab" id="tab-kifizetesek" aria-controls="panel-kifizetesek" aria-selected="false" tabindex="-1" data-tab="kifizetesek">Kifizetések</button>
+      <button type="button" class="tab" role="tab" id="tab-streamerek" aria-controls="panel-streamerek" aria-selected="false" tabindex="-1" data-tab="streamerek">Streamer jelentkezések<span class="count" id="count-apps"></span></button>
+    </div>
+
+    <!-- ÁTTEKINTÉS -->
+    <section class="section" id="panel-attekintes" role="tabpanel" aria-labelledby="tab-attekintes" tabindex="-1">
+      <div class="stats" id="ov-stats"></div>
+      <h2 class="h-sec" style="margin:32px 0 16px">Kampányok kerete</h2>
+      <div class="grid" id="ov-campaigns"></div>
+    </section>
+
+    <!-- KLIPEK -->
+    <section class="section" id="panel-klipek" role="tabpanel" aria-labelledby="tab-klipek" tabindex="-1" hidden>
+      <div class="filters">
+        <div class="fld">
+          <label for="f-status">Állapot</label>
+          <select class="input select" id="f-status">
+            <option value="bekuldve">Ellenőrzésre vár</option>
+            <option value="jovahagyva">Jóváhagyva</option>
+            <option value="elutasitva">Elutasítva</option>
+            <option value="">Mind</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="f-campaign">Kampány</label>
+          <select class="input select" id="f-campaign"><option value="">Minden kampány</option></select>
+        </div>
+      </div>
+      <p class="hint" id="clips-count" role="status" aria-live="polite"></p>
+      <div class="stack" id="clips-list" style="margin-top:12px"></div>
+    </section>
+
+    <!-- KAMPÁNYOK -->
+    <section class="section" id="panel-kampanyok" role="tabpanel" aria-labelledby="tab-kampanyok" tabindex="-1" hidden>
+      <div class="card">
+        <form id="camp-form" class="form" novalidate>
+          <div class="section-head" style="margin-bottom:0">
+            <h2 class="h-sec" id="camp-form-title">Új kampány</h2>
+            <button type="button" class="btn btn-ghost btn-sm" id="camp-new" hidden>Új kampány helyett</button>
+          </div>
+          <input type="hidden" id="cf-id">
+          <div class="form-row">
+            <div class="fld"><label for="cf-title">Kampány neve</label><input class="input" id="cf-title" maxlength="120" required></div>
+            <div class="fld"><label for="cf-creator">Tartalomgyártó neve</label><input class="input" id="cf-creator" maxlength="120" required></div>
+            <div class="fld"><label for="cf-platform">Tartalomgyártó platformja</label><input class="input" id="cf-platform" maxlength="60" list="cf-platforms" placeholder="pl. Twitch"><datalist id="cf-platforms"><option value="Twitch"><option value="Kick"><option value="YouTube"><option value="Podcast"></datalist></div>
+          </div>
+          <div class="fld"><label for="cf-desc">Leírás (a clipperek látják)</label><textarea class="textarea" id="cf-desc" maxlength="5000"></textarea></div>
+          <div class="fld"><label for="cf-rules">Szabályok, tiltások (a clipperek látják)</label><textarea class="textarea" id="cf-rules" maxlength="10000"></textarea></div>
+          <div class="form-row">
+            <div class="fld"><label for="cf-crate">Clipper díj (Ft / 1000 megtekintés)</label><input class="input" id="cf-crate" type="number" min="0" step="1" value="150" required></div>
+            <div class="fld"><label for="cf-srate">Streamer díj (Ft / 1000 megtekintés)</label><input class="input" id="cf-srate" type="number" min="0" step="1" value="300" required></div>
+            <div class="fld"><label for="cf-fee">Kampánykezelési díj (Ft)</label><input class="input" id="cf-fee" type="number" min="0" step="1" value="30000"></div>
+            <div class="fld"><label for="cf-budget">Megtekintési keret (Ft)</label><input class="input" id="cf-budget" type="number" min="1" step="1" required></div>
+          </div>
+          <div class="form-row">
+            <div class="fld"><label for="cf-start">Kezdete</label><input class="input" id="cf-start" type="date"></div>
+            <div class="fld"><label for="cf-end">Vége</label><input class="input" id="cf-end" type="date"></div>
+            <div class="fld"><label for="cf-status">Állapot</label>
+              <select class="input select" id="cf-status"><option value="aktiv">Aktív</option><option value="szunetel">Szünetel</option><option value="lezart">Lezárva</option></select>
+            </div>
+          </div>
+          <div id="camp-msg" class="msg" role="status" aria-live="polite" hidden></div>
+          <div class="btn-row"><button class="btn btn-accent" type="submit" id="camp-save">Kampány létrehozása</button></div>
+        </form>
+      </div>
+      <h2 class="h-sec" style="margin:32px 0 16px">Összes kampány</h2>
+      <div class="stack" id="camp-list"></div>
+    </section>
+
+    <!-- CLIPPEREK -->
+    <section class="section" id="panel-clipperek" role="tabpanel" aria-labelledby="tab-clipperek" tabindex="-1" hidden>
+      <div id="clippers-list"></div>
+    </section>
+
+    <!-- KIFIZETÉSEK -->
+    <section class="section" id="panel-kifizetesek" role="tabpanel" aria-labelledby="tab-kifizetesek" tabindex="-1" hidden>
+      <div class="msg msg-warn" style="margin-bottom:18px">Utalás előtt: a kifizetés módja és adózása legyen könyvelővel tisztázva, a clipper kifizetési adatai legyenek meg (privát úton), és a szabályzat tervezete szerint 5&nbsp;000&nbsp;Ft alatti egyenleg a következő körre gördül.</div>
+      <h2 class="h-sec" style="margin-bottom:16px">Kifizetésre vár</h2>
+      <div id="owed-list" class="stack"></div>
+      <div class="section-head" style="margin-top:36px">
+        <h2 class="h-sec">Kifizetések története</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="csv-btn">Letöltés CSV-ben</button>
+      </div>
+      <div id="payout-history"></div>
+    </section>
+
+    <!-- STREAMER JELENTKEZÉSEK -->
+    <section class="section" id="panel-streamerek" role="tabpanel" aria-labelledby="tab-streamerek" tabindex="-1" hidden>
+      <div class="stack" id="apps-list"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap site-foot">
+  <span class="foot-brand">KlipLabor</span>
+  <div class="foot-links">
+    <a href="szabalyzat.html">Szabályzat</a>
+    <a href="adatvedelem.html">Adatvédelem</a>
+  </div>
+  <span>© 2026 KlipLabor</span>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>
