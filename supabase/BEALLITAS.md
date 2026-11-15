@@ -71,7 +71,7 @@ Adminná csak ezzel az SQL sorral lehet tenni valakit, a weboldalról nem. Másn
 
 A tesztadatokat a végén a **Table Editor**-ban törölheted (a próba kampánynál előbb a hozzá tartozó klipeket).
 
-Ha a főoldali ajánlatkérő vagy a belépés „Invalid JWT” / „Lejárt a bejelentkezésed” jellegű hibát ad már az első próbánál, szólj: valószínűleg a weboldalban használt Supabase programcsomag verzióját kell frissíteni, vagy az `assets/config.js`-ben a publishable kulcs helyett a régi, szintén nyilvános **anon** kulcsot kell beírni (Project Settings → API Keys → Legacy API Keys → `anon` `public`). A **service_role** kulcsot ilyenkor sem!
+Ha a főoldali ajánlatkérő vagy a belépés „Invalid JWT” / „Lejárt a bejelentkezésed” jellegű hibát ad már az első próbánál, szólj: akkor az `assets/config.js`-ben a publishable kulcs helyett a régi, szintén nyilvános **anon** kulcsot kell beírni (Project Settings → API Keys → Legacy API Keys → `anon` `public`). A **service_role** kulcsot ilyenkor sem!
 
 ## 7. Az ingyenes csomag „elalszik”
 
