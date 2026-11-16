@@ -28,8 +28,38 @@
       $('#app').hidden = false;
       var h = KL.hashError();
       if (h) { KL.say($('#page-msg'), h, 'err'); }
+      initSubnav();
     });
   }).catch(fail);
+
+  /* Al-menü: a betöltés után a címsorban kért részre görget, és jelzi, hol jársz. */
+  function initSubnav() {
+    var bar = document.getElementById('subnav');
+    if (!bar) { return; }
+    var links = Array.prototype.slice.call(bar.querySelectorAll('a[href^="#"]'));
+    function mark(id) {
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + id;
+        if (on) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
+        if (on && a.scrollIntoView && bar.scrollWidth > bar.clientWidth) {
+          bar.scrollLeft = a.offsetLeft - 12;
+        }
+      });
+    }
+    var target = (window.location.hash || '').replace(/^#/, '');
+    if (target && /^[a-z]+$/.test(target)) {
+      var el = document.getElementById(target);
+      if (el) { setTimeout(function () { el.scrollIntoView(); mark(target); }, 0); }
+    }
+    if (!('IntersectionObserver' in window)) { return; }
+    var sections = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); }).filter(Boolean);
+    var io = new IntersectionObserver(function (entries) {
+      var visible = entries.filter(function (e) { return e.isIntersecting; })
+        .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+      if (visible.length) { mark(visible[0].target.id); }
+    }, { rootMargin: '-160px 0px -55% 0px', threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  }
 
   function loadAll() {
     return Promise.all([

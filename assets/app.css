@@ -106,6 +106,23 @@ h1, h2, h3, p { margin: 0; }
 }
 .nav-btn:hover { border-color: var(--text-soft); color: var(--text); }
 
+/* ---------- Al-menü (clipper felület) ---------- */
+.subnav { max-width: 1200px; margin: 8px auto 0; }
+.subnav-in {
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  background: rgba(16, 18, 22, 0.86); border: 1px solid var(--line); border-radius: 14px;
+  padding: 6px; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.subnav-in::-webkit-scrollbar { display: none; }
+.subnav-link {
+  flex: none; display: inline-flex; align-items: center; min-height: 40px; padding: 8px 14px;
+  border-radius: 10px; color: var(--text-soft); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap;
+}
+.subnav-link:hover { color: var(--text); background: #1C2027; }
+.subnav-link[aria-current="true"] { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+.has-subnav [id] { scroll-margin-top: 150px; }
+.has-subnav .nav-shell { background: linear-gradient(to bottom, var(--bg) 75%, rgba(8, 9, 11, 0)); padding-bottom: 10px; }
+
 /* ---------- Layout ---------- */
 .page-head { padding-top: 48px; padding-bottom: 28px; }
 .page-head .eyebrow { margin-bottom: 10px; }

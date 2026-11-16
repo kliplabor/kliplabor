@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/app.css">
 </head>
-<body>
+<body class="has-subnav">
 <a class="skip" href="#tartalom">Ugrás a tartalomra</a>
 
 <header class="nav-shell">
@@ -26,6 +26,15 @@
       <span class="nav-user" id="nav-user"></span>
       <a class="nav-link" href="admin.html" id="nav-admin" hidden>Admin</a>
       <button type="button" class="nav-btn" data-action="kilepes">Kilépés</button>
+    </div>
+  </nav>
+  <nav class="subnav" aria-label="Ugrás a felület részeire">
+    <div class="subnav-in" id="subnav">
+      <a class="subnav-link" href="#kampanyok">Kampányok</a>
+      <a class="subnav-link" href="#bekuldes">Klip beküldése</a>
+      <a class="subnav-link" href="#klipjeim">Klipjeim</a>
+      <a class="subnav-link" href="#kifizetesek">Kifizetések</a>
+      <a class="subnav-link" href="#profil">Profil</a>
     </div>
   </nav>
 </header>
